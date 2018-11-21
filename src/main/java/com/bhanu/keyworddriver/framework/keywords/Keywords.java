@@ -1,21 +1,13 @@
 package com.bhanu.keyworddriver.framework.keywords;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-
 import com.bhanu.keyworddriver.framework.testBase.TestBase;
-import com.google.common.base.Function;
 
 public class Keywords extends TestBase{
 	
@@ -32,13 +24,13 @@ public class Keywords extends TestBase{
 	
 	
 	
-	public static String Navigate() {
+	public static String navigate() {
 		System.out.println("Navigate is called");
 		driver.get(webElement);		
 		return "Pass";
 	}
 
-	public static String selectRadioButton() {
+	public static String clickRadioButton() {
 		try {
 			getWebElement(webElement).click();
 		}catch (Throwable t) {
@@ -49,7 +41,7 @@ public class Keywords extends TestBase{
 	
 
 	
-	public static String InputText() {
+	public static String inputText() {
 		System.out.println("InputText is called");
 		try {
 			getWebElement(webElement).sendKeys(TestData);
@@ -61,7 +53,7 @@ public class Keywords extends TestBase{
 	
 	
 	
-	public static String ClickOnLink() {
+	public static String clickOnLink() {
 		System.out.println("ClickOnLink is called");
 		try {
 			getWebElement(webElement).click();
@@ -72,7 +64,7 @@ public class Keywords extends TestBase{
 		return "Pass";
 	}
 
-	public static String VerifyText() {
+	public static String verifyText() {
 		System.out.println("VerifyText is called");
 		try {
 			String ActualText= getWebElement(webElement).getText();
@@ -86,7 +78,7 @@ public class Keywords extends TestBase{
 		return "Pass";
 	}
 
-	public static String VerifyAppText() {
+	public static String verifyAppText() {
 		System.out.println("VerifyText is called");
 		try {
 			String ActualText= getWebElement(webElement).getText();
@@ -94,6 +86,51 @@ public class Keywords extends TestBase{
 				return "Failed - Actual text "+ActualText+" is not equal to to expected text "+AppText.getProperty(webElement);
 			}
 		}catch (Throwable t) {
+			return "Failed - Element not found "+webElement;
+		}
+		return "Pass";
+	}
+	
+	public static String mouseOver(){
+		try {
+			WebElement element = getWebElement(webElement);
+			Actions action = new Actions(driver);
+			action.moveToElement(element).build().perform();
+			Thread.sleep(5000);
+		} catch (Exception e) {
+			return "Failed - Element not found "+webElement;
+		}
+		return "Pass";
+	}
+	
+	public static String selectByValue(){
+		try {
+			WebElement element = getWebElement(webElement);
+			Select select = new  Select(element);
+			select.selectByValue(TestData);
+		} catch (Exception e) {
+			return "Failed - Element not found "+webElement;
+		}
+		return "Pass";
+	}
+
+	public static String selectByVisibleText(){
+		try {
+			WebElement element = getWebElement(webElement);
+			Select select = new  Select(element);
+			select.selectByVisibleText(TestData);
+		} catch (Exception e) {
+			return "Failed - Element not found "+webElement;
+		}
+		return "Pass";
+	}
+	
+	public static String selectByIndex(){
+		try {
+			WebElement element = getWebElement(webElement);
+			Select select = new  Select(element);
+			select.selectByIndex(Integer.parseInt(TestData));
+		} catch (Exception e) {
 			return "Failed - Element not found "+webElement;
 		}
 		return "Pass";

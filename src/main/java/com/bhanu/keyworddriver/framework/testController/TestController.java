@@ -84,7 +84,7 @@ public class TestController extends TestBase{
 						
 						if(TSStatus.contains("Failed")) {
 							// take the screenshot
-							String filename = TestCaseID+"["+(TD-1)+"]"+TSID+"["+TestData+"]";
+							String filename = TestCaseID+"["+(TD-1)+"]";
 							String screenShot = TestBase.getScreenShot(filename);
 							
 							TCStatus = TSStatus;

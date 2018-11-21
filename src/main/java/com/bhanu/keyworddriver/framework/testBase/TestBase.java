@@ -49,6 +49,10 @@ public class TestBase {
 		FI = new FileInputStream(f);
 		Repository.load(FI);
 		
+		f = new File(System.getProperty("user.dir")+"/src/test/java/propertiesFiles/homePage.Properties");
+		FI = new FileInputStream(f);
+		Repository.load(FI);
+		
 	}
 	
 	public static String now(String format) {
@@ -86,7 +90,7 @@ public class TestBase {
 		return driver;
 	}
 	
-	 static String reportDirectery = System.getProperty("user.dir")+"/src/test/java/Screenshot";
+	 static String reportDirectery = System.getProperty("user.dir")+"/src/test/java/screenshot";
 		
 		public static String getScreenShot(String fileName){
 			if(driver == null){
