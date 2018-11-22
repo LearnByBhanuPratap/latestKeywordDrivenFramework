@@ -53,6 +53,10 @@ public class TestBase {
 		FI = new FileInputStream(f);
 		Repository.load(FI);
 		
+		f = new File(System.getProperty("user.dir")+"/src/test/java/propertiesFiles/config.properties");
+		FI = new FileInputStream(f);
+		Repository.load(FI);
+		
 	}
 	
 	public static String now(String format) {

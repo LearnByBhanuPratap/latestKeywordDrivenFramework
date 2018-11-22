@@ -71,14 +71,11 @@ public class TestController extends TestBase{
 						if(TestDataField!= null && TestDataField!=""){
 							TestData = TestStepData.getCellData(TestCaseID, TestDataField, TD);	
 						}
-						
-							
-						
+
 						if(TestDataField.equals("email")){
 							TestData = "test"+System.currentTimeMillis()+"@gmail.com";
 						}
-						
-						
+
 						Method method = Keywords.class.getMethod(keyword);	
 						TSStatus = (String) method.invoke(method);
 						
@@ -97,7 +94,6 @@ public class TestController extends TestBase{
 						} else {
 							ReportUtil.addKeyword(Description, keyword, TSStatus, null);
 						}
-						
 					}
 					ReportUtil.addTestCase(TestCaseID, startTime, TestBase.now("dd.MMMM.yyyy hh.mm.ss aaa"), TCStatus);
 					driver.quit();
@@ -108,10 +104,8 @@ public class TestController extends TestBase{
 				driver.quit();
 			}
 		}
-
 		ReportUtil.endSuite();
 		ReportUtil.updateEndTime(TestBase.now("dd.MMMM.yyyy hh.mm.ss aaa"));
-		
 	}
 	
 	
@@ -120,6 +114,4 @@ public class TestController extends TestBase{
 		System.out.println("In quitBrowser---------------------------");
 		driver.quit();
 	}
-	
-	
 }

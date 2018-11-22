@@ -1,19 +1,25 @@
 package com.bhanu.keyworddriver.framework.keywords;
 
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.bhanu.keyworddriver.framework.testBase.LoggerHelper;
 import com.bhanu.keyworddriver.framework.testBase.TestBase;
+import com.bhanu.keyworddriver.framework.testBase.Wait;
 
 public class Keywords extends TestBase{
 	
+	private final static Logger logger = LoggerHelper.getLogger(Keywords.class);
 	
 	public static WebElement getWebElement(String locator) throws Exception{
-		System.out.println("locator data:-"+locator+"is---"+Repository.getProperty(locator));
+		//logger.info("locator data:-"+locator+"is---"+Repository.getProperty(locator));
 		String keywordValue = Repository.getProperty(locator);
 		return getLocator(keywordValue);
 	}
@@ -25,13 +31,14 @@ public class Keywords extends TestBase{
 	
 	
 	public static String navigate() {
-		System.out.println("Navigate is called");
+		logger.info("Navigate is called");
 		driver.get(webElement);		
 		return "Pass";
 	}
 
 	public static String clickRadioButton() {
 		try {
+			expliciteWait();
 			getWebElement(webElement).click();
 		}catch (Throwable t) {
 			return "Failed - Element not found "+webElement;
@@ -42,8 +49,9 @@ public class Keywords extends TestBase{
 
 	
 	public static String inputText() {
-		System.out.println("InputText is called");
+		logger.info("InputText is called");
 		try {
+			expliciteWait();
 			getWebElement(webElement).sendKeys(TestData);
 		}catch (Throwable t) {
 			return "Failed - Element not found "+webElement;
@@ -54,8 +62,9 @@ public class Keywords extends TestBase{
 	
 	
 	public static String clickOnLink() {
-		System.out.println("ClickOnLink is called");
+		logger.info("ClickOnLink is called");
 		try {
+			expliciteWait();
 			getWebElement(webElement).click();
 		}catch (Throwable t) {
 			t.printStackTrace();
@@ -65,10 +74,11 @@ public class Keywords extends TestBase{
 	}
 
 	public static String verifyText() {
-		System.out.println("VerifyText is called");
+		logger.info("VerifyText is called");
 		try {
+			expliciteWait();
 			String ActualText= getWebElement(webElement).getText();
-			System.out.println(ActualText);
+			logger.info(ActualText);
 			if(!ActualText.equals(TestData)) {
 				return "Failed - Actual text "+ActualText+" is not equal to to expected text "+TestData;
 			}
@@ -79,8 +89,9 @@ public class Keywords extends TestBase{
 	}
 
 	public static String verifyAppText() {
-		System.out.println("VerifyText is called");
+		logger.info("VerifyText is called");
 		try {
+			expliciteWait();
 			String ActualText= getWebElement(webElement).getText();
 			if(!ActualText.equals(AppText.getProperty(webElement))) {
 				return "Failed - Actual text "+ActualText+" is not equal to to expected text "+AppText.getProperty(webElement);
@@ -93,10 +104,11 @@ public class Keywords extends TestBase{
 	
 	public static String mouseOver(){
 		try {
+			expliciteWait();
 			WebElement element = getWebElement(webElement);
 			Actions action = new Actions(driver);
 			action.moveToElement(element).build().perform();
-			Thread.sleep(5000);
+			Thread.sleep(1000);
 		} catch (Exception e) {
 			return "Failed - Element not found "+webElement;
 		}
@@ -105,6 +117,7 @@ public class Keywords extends TestBase{
 	
 	public static String selectByValue(){
 		try {
+			expliciteWait();
 			WebElement element = getWebElement(webElement);
 			Select select = new  Select(element);
 			select.selectByValue(TestData);
@@ -116,6 +129,7 @@ public class Keywords extends TestBase{
 
 	public static String selectByVisibleText(){
 		try {
+			expliciteWait();
 			WebElement element = getWebElement(webElement);
 			Select select = new  Select(element);
 			select.selectByVisibleText(TestData);
@@ -195,8 +209,10 @@ public class Keywords extends TestBase{
 
 	public static String expliciteWait() throws Exception {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, Integer.parseInt(TestData));
+			logger.info("Waiting for webElement..."+webElement.toString());
+			WebDriverWait wait = new WebDriverWait(driver, Integer.parseInt(Wait.getExplicitWait()));
 			wait.until(ExpectedConditions.visibilityOf(getWebElement(webElement)));
+			logger.info("Element found..."+webElement.toString());
 			return "Pass";
 		} catch (Exception e) {
 			e.printStackTrace();

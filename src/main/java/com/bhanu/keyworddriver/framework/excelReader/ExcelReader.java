@@ -62,7 +62,7 @@ public class ExcelReader {
 			XSSFCell cell = row.getCell(col_Num);
 			
 			if(cell==null){
-				System.out.println("cell is not present");
+				//System.out.println("cell is not present");
 				return "";
 			}
 			
