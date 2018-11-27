@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.net.UrlChecker.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -207,16 +208,14 @@ public class Keywords extends TestBase{
 	}
 
 
-	public static String expliciteWait() throws Exception {
+	public static void expliciteWait() throws Exception {
 		try {
 			logger.info("Waiting for webElement..."+webElement.toString());
 			WebDriverWait wait = new WebDriverWait(driver, Integer.parseInt(Wait.getExplicitWait()));
 			wait.until(ExpectedConditions.visibilityOf(getWebElement(webElement)));
 			logger.info("Element found..."+webElement.toString());
-			return "Pass";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "Failed : explicit wait failed for :"+webElement;
+		} catch (Throwable e) {
+			throw new TimeoutException(webElement, e);
 			
 		}
 		

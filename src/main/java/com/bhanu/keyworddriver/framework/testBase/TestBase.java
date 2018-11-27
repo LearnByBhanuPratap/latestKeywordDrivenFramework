@@ -77,22 +77,22 @@ public class TestBase {
 				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/test/resources/drivers/chromedriver.exe");
 				driver = new ChromeDriver();
 				driver.manage().window().maximize();
-				driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(Integer.parseInt(Wait.getImplicitWait()), TimeUnit.SECONDS);
 			} else if (browser.equalsIgnoreCase(Browsers.FIREFOX.name())) {
 				System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/src/test/resources/drivers/geckodriver.exe");
 				driver = new FirefoxDriver();
 				driver.manage().window().maximize();
-				driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(Integer.parseInt(Wait.getImplicitWait()), TimeUnit.SECONDS);
 			}
 		} else if (System.getProperty("os.name").toLowerCase().contains(OS.MAC.name().toLowerCase())) {
 			if (browser.equalsIgnoreCase(Browsers.CHROME.name())) {
 				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/test/resources/drivers/chromedriver");
 				driver = new ChromeDriver();
-				driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(Integer.parseInt(Wait.getImplicitWait()), TimeUnit.SECONDS);
 			} else if (browser.equalsIgnoreCase(Browsers.FIREFOX.name())) {
 				System.setProperty("webdriver.firefox.marionette", System.getProperty("user.dir") + "/src/test/resources/drivers/geckodriver");
 				driver = new FirefoxDriver();
-				driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(Integer.parseInt(Wait.getImplicitWait()), TimeUnit.SECONDS);
 			}
 		}
 		return driver;

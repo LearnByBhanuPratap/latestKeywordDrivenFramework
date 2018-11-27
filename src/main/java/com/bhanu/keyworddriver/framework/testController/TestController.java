@@ -101,7 +101,10 @@ public class TestController extends TestBase{
 			}else {
 				// skip the test case
 				ReportUtil.addTestCase(TestCaseID, startTime, TestBase.now("dd.MMMM.yyyy hh.mm.ss aaa"), "Skipped");
-				driver.quit();
+				if(driver!=null){
+					driver.quit();	
+				}
+				
 			}
 		}
 		ReportUtil.endSuite();
@@ -112,6 +115,8 @@ public class TestController extends TestBase{
 	@AfterClass
 	public void quitBrowser() {
 		System.out.println("In quitBrowser---------------------------");
-		driver.quit();
+		if(driver!=null){
+			driver.quit();	
+		}
 	}
 }
